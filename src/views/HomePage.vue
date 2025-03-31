@@ -1,12 +1,12 @@
 <template>
-
+  <HeaderBar />
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
+import HeaderBar from '@/components/Header.vue';
 export default{
     name: 'HomePage',
-    components: { Header },
+    components: { HeaderBar },
     
 }
 </script>

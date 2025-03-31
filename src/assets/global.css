@@ -1,0 +1,34 @@
+/* global color  */
+:root {
+    --primary-color: #6C8FA9;
+    --secondary-color: #52738C;
+    --tertiary-color: #4C697A;
+    --quaternary-color: #CDDAE2;
+    --grey1: #F2F2F2;
+    --grey2: #A6A6A6;
+    --grey3: #AFABAB;
+    --grey4: #A5A5A5;
+}
+
+/**
+* text collection
+*/
+.text-title {
+
+}
+
+.text-subtitle {
+
+}
+
+.text-body {
+
+}
+
+.text-body-special {
+
+}
+
+.text-hint{
+
+}
