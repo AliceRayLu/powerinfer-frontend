@@ -4,17 +4,19 @@
     --secondary-color: #52738C;
     --tertiary-color: #4C697A;
     --quaternary-color: #CDDAE2;
+    --grey0: #DBDBDB;
     --grey1: #F2F2F2;
     --grey2: #A6A6A6;
     --grey3: #AFABAB;
     --grey4: #A5A5A5;
+    --content-width: 70vw;
 }
 
 /**
 * text collection
 */
 .text-title {
-
+    font-size: 1.3em;
 }
 
 .text-subtitle {
@@ -22,7 +24,7 @@
 }
 
 .text-body {
-
+    font-size: 1em;
 }
 
 .text-body-special {
@@ -30,5 +32,23 @@
 }
 
 .text-hint{
+    font-size: 0.8em;
+}
 
+.text-small-hint{
+
+}
+
+/* container format */
+.main-container{
+    display: flex;
+    width: var(--content-width);
+    margin: 0 auto;
+}
+
+.text-input{
+    width: 100%;
+    outline: none;
+    background-color: color-mix(in srgb, var(--grey1) 60%, transparent);
+    border: none;
 }

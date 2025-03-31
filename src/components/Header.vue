@@ -4,11 +4,11 @@
             <div class="header-container">
               <div class="navbar">
                 <span class="title" @click="toHome">PowerInfer</span>
-                <span class="nav-link-item" style="margin-left: 2vw;" @click="toInstall">
+                <span class="text-title nav-link-item" style="margin-left: 2vw;" @click="toInstall">
                   Install
                 </span>
-                <span class="nav-link-item" @click="toModels">Models</span>
-                <span class="nav-link-item" @click="toAbout">
+                <span class="text-title nav-link-item" @click="toModels">Models</span>
+                <span class="text-title nav-link-item" @click="toAbout">
                   About-Model Sparsification
                 </span>
               </div>
@@ -75,7 +75,7 @@ header nav{
 }
 .header-container{
   display: flex;
-  width: 70vw;
+  width: var(--content-width);
   margin: 0 auto;
   justify-content: space-between;
 }
@@ -89,7 +89,6 @@ header nav{
 }
 .nav-link-item {
   margin-left: 1vw;
-  font-size: 1.3em;
   font-weight: 100;
 }
 
