@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state: {
@@ -13,5 +14,10 @@ export default createStore({
     updateUserId({ commit }, id) {
       commit('setUserId', id)
     }
-  }
+  },
+  plugins: [createPersistedState({
+    key: 'powerinfer-store',
+    storage: window.localStorage,
+    paths: ['userId']
+  })]
 })

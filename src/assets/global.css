@@ -29,7 +29,7 @@
 }
 
 .text-body {
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .text-body-special {
@@ -49,11 +49,24 @@
 }
 
 /* container format */
+.container {
+    display: flex;
+    height: 93vh;
+    flex-direction: column;
+}
 .main-container{
     display: flex;
     flex: 1;
     width: var(--content-width);
     margin: 0 auto;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: 5vh auto;
+    align-items: flex-start;
 }
 
 .text-input{

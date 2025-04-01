@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; height: 93vh;flex-direction: column;">
+  <div class="container">
     <HeaderBar />
     <div class="main-container" style="align-items: center;">
       <div class="left-container">
