@@ -41,7 +41,7 @@
         <input v-model="username" class="text-input"/>
         <div class="text-hint text-margin">Email</div>
         <input v-model="email" class="text-input"/>
-        <div class="text-hint">Password</div>
+        <div class="text-hint text-margin">Password</div>
         <input v-model="password" class="text-input" type="password"/>
         <div class="text-hint text-margin" v-if="this.showHint" style="color: red;">{{hint}}</div>
         <TextButton :action="signUp" type="primary" text="Sign Up" class="button"/>
@@ -167,7 +167,8 @@ export default{
   display: flex;
   justify-content: space-between;
   width: 75%;
-  margin: 2vh;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
 }
 .button {
   margin-top: 2vh;

@@ -10,6 +10,7 @@
     --grey3: #AFABAB;
     --grey4: #A5A5A5;
     --grey5: #737373;
+    --grey6: #c0c0c0;
     --content-width: 70vw;
 }
 
@@ -18,10 +19,14 @@
 */
 .text-title {
     font-size: 1.3em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 
 .text-subtitle {
-
+    font-size: 1.2em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 
 .text-bold {
@@ -29,7 +34,7 @@
 }
 
 .text-body {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .text-body-special {
@@ -38,10 +43,6 @@
 
 .text-hint{
     font-size: 0.8em;
-}
-
-.text-small-hint{
-
 }
 
 .text-margin {
@@ -64,7 +65,7 @@
 .text-container {
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: 45vw;
     margin: 5vh auto;
     align-items: flex-start;
 }
