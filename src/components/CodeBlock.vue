@@ -50,8 +50,8 @@ export default {
   justify-content: space-between;
   width: 100%;
   background-color: color-mix(in srgb, var(--grey4) 13%, transparent);
-  padding: 1em;
-  border-radius: 0.8em;
+  padding: 10px;
+  border-radius: 7px;
   align-items: center;
   margin: 1vh 0 1vh 0;
 }

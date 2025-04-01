@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     width: 45vw;
-    margin: 5vh auto;
+    margin: 2vh auto;
     align-items: flex-start;
 }
 
@@ -75,6 +75,7 @@
     outline: none;
     background-color: color-mix(in srgb, var(--grey1) 60%, transparent);
     border: none;
-    height: 2em;
+    padding: 0.7em;
     margin: 1vh 0 1vh 0;
+    border-radius: 0.5em;
 }

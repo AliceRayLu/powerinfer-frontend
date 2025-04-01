@@ -2,7 +2,7 @@
   <div class="container">
     <HeaderBar />
     <div class="main-container">
-      <div class="text-container">
+      <div class="text-container" style="width: 40vw;">
         <div class="text-title text-bold">Installation & Simple Tutorial</div>
 
         <div class="text-subtitle text-bold">Installation</div>
@@ -25,9 +25,9 @@
 
         <div class="text-subtitle text-bold">Changing Running Config</div>
 
-        <div class="text-subtitle text-bold">Manage Local Models</div>
+        <div class="text-subtitle text-bold">Managing Local Models</div>
 
-        <div class="text-subtitle text-bold">Upload a Model</div>
+        <div class="text-subtitle text-bold">Uploading a Model</div>
 
       </div>
     </div>
