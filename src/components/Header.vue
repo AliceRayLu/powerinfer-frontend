@@ -64,14 +64,14 @@ export default {
 <style>
 header nav{
   height: 7vh;
-  position: fixed;
   display: flex;
+  position: absolute;
   top: 0;
   left: 0;
   align-items: center;
   flex-direction: row;
   width: 100%;
-  /* background-color: var(--grey1); */
+  background-color: var(--grey1);
 }
 .header-container{
   display: flex;
