@@ -43,7 +43,9 @@
           />
         </div>
         <div class="text-body text-margin">Existing keys: </div>
-
+        <div class="key-cards">
+          <KeyCard time="2025-2-22 22:22" ssh_key="ssh-rsa krlekrjtlwkrjtlwkjer" key_id="129387192893" :action="deleteSSHKey"/>
+        </div>
         <div class="text-body text-margin">Add a new key:</div>
         <input class="text-input" v-model="ssh_key" />
         <TextButton :action="addSSHKey" type="primary" text="Add" />
@@ -61,10 +63,11 @@ import FooterBar from "@/components/Footer.vue";
 import TextButton from "@/components/Button.vue";
 import SelectBox from "@/components/SelectBox.vue";
 import CodeBlock from "@/components/CodeBlock.vue";
+import KeyCard from "@/components/KeyCard.vue";
 
 export default defineComponent({
   name: "SettingsPage",
-  components: {CodeBlock, SelectBox, TextButton, FooterBar, HeaderBar},
+  components: {KeyCard, CodeBlock, SelectBox, TextButton, FooterBar, HeaderBar},
   data(){
     return {
       username:"",
@@ -108,7 +111,10 @@ export default defineComponent({
 
     },
     updatePassword(){},
-    addSSHKey(){}
+    addSSHKey(){},
+    deleteSSHKey(kid){
+      console.log(kid)
+    },
   }
 })
 </script>
@@ -128,5 +134,9 @@ export default defineComponent({
 .select-box {
   width: 18%;
   margin-left: .5vw;
+}
+.key-cards {
+  display: flex;
+  width: 100%;
 }
 </style>
