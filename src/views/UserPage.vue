@@ -9,7 +9,20 @@
       </div>
 
       <div class="model-column sub-container">
-        <SearchBar :action="searchModels" v-model="search_text" />
+        <div class="top-bar">
+          <SearchBar :action="searchModels" v-model="search_text" />
+          <SelectBox default-value="Popular" :options="[
+              {
+                value: 'Popular',
+                label: 'Popular',
+              },
+              {
+                value: 'Latest',
+                label: 'Latest',
+              }
+          ]" v-model="order" border="#6C8FA9" />
+        </div>
+        
       </div>
     </div>
     <FooterBar />
@@ -22,9 +35,10 @@ import FooterBar from "@/components/Footer.vue";
 import service from "@/utils";
 import { mapState } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
+import SelectBox from "@/components/SelectBox.vue";
 
 export default{
-  components: {SearchBar, FooterBar, HeaderBar},
+  components: {SelectBox, SearchBar, FooterBar, HeaderBar},
   computed: {
     ...mapState(["userId"])
   },
@@ -34,7 +48,8 @@ export default{
       email: "",
       bio: "",
       search_text: "",
-      models: []
+      models: [],
+      order: ""
     }
   },
   mounted() {
@@ -69,5 +84,10 @@ export default{
 }
 .model-column {
   width: 70%;
+}
+.top-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div @click="action" :class="['basic', type]">{{ text }}</div>
+  <div @click="action" :class="['basic', 'text-hint', type, capsule ? 'capsule': '']">{{ text }}</div>
 </template>
 
 <script>
@@ -14,13 +14,17 @@ export default {
       type: String,
       required: true,
       validator: (value) => {
-        const validOptions = ['primary', 'secondary']
+        const validOptions = ['primary', 'secondary', 'tertiary'];
         return validOptions.includes(value)
       }
     },
     action: {
       type: Function,
       required: true
+    },
+    capsule: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -34,6 +38,10 @@ export default {
   font-weight: bold;
 }
 
+.basic.capsule {
+  border-radius: 9999px;
+}
+
 .primary {
   background-color: color-mix(in srgb, var(--primary-color) 80%, transparent);
   color: white;
@@ -41,5 +49,10 @@ export default {
 
 .secondary {
   background-color: color-mix(in srgb, var(--grey2) 20%, transparent);
+}
+
+.tertiary {
+  background-color: color-mix(in srgb, var(--primary-color) 30%, transparent);
+  color: var(--secondary-color);
 }
 </style>

@@ -39,7 +39,6 @@
                 { value: 'Linux', label: 'Linux' }
               ]"
               defaultValue="Windows"
-              class="select-box"
           />
         </div>
         <div class="text-body text-margin">Existing keys: </div>
@@ -229,10 +228,6 @@ export default {
 }
 .code-left {
   flex: 1;
-}
-.select-box {
-  width: 18%;
-  margin-left: .5vw;
 }
 .key-cards {
   display: flex;

@@ -1,5 +1,6 @@
 <template>
-  <select v-model="selectedValue" class="select-box">
+  <select v-model="selectedValue" class="select-box"
+          :style="{borderColor: border || '#ccc', color: border || '#000' }">
     <option v-for="option in options" :key="option.value" :value="option.value">
       {{ option.label }}
     </option>
@@ -20,7 +21,8 @@ export default {
     defaultValue: {
       type: [String, Number],
       default: ''
-    }
+    },
+    border: String,
   },
   data() {
     return {
@@ -34,9 +36,10 @@ export default {
 .select-box {
   padding: 8px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid;
   font-size: 1em;
-  width: 100%;
   display: flex;
+  width: 18%;
+  margin-left: .5vw;
 }
 </style>
