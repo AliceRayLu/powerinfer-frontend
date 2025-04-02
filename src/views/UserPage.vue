@@ -22,7 +22,9 @@
               }
           ]" v-model="order" border="#6C8FA9" />
         </div>
-        
+        <div class="model-card-container">
+          <ModelCard name="modelname" num_down="1003" update="2025-03-23" sizes="3b,7b,13b,67b"  />
+        </div>
       </div>
     </div>
     <FooterBar />
@@ -32,13 +34,14 @@
 <script>
 import HeaderBar from "@/components/Header.vue";
 import FooterBar from "@/components/Footer.vue";
-import service from "@/utils";
+import service from "@/utils/index";
 import { mapState } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
 import SelectBox from "@/components/SelectBox.vue";
+import ModelCard from "@/components/ModelCard.vue";
 
 export default{
-  components: {SelectBox, SearchBar, FooterBar, HeaderBar},
+  components: {ModelCard, SelectBox, SearchBar, FooterBar, HeaderBar},
   computed: {
     ...mapState(["userId"])
   },
@@ -89,5 +92,9 @@ export default{
   width: 100%;
   display: flex;
   align-items: center;
+}
+.model-card-container {
+  display: flex;
+  width: 100%;
 }
 </style>

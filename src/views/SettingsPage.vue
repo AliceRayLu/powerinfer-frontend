@@ -43,7 +43,7 @@
         </div>
         <div class="text-body text-margin">Existing keys: </div>
         <div class="key-cards" v-for="key in keys" :key="key.kid">
-          <KeyCard :time="formatDate(key.date)" :ssh_key="key.content" :key_id="key.kid" :action="deleteSSHKey"/>
+          <KeyCard :time="formatDate()(key.date)" :ssh_key="key.content" :key_id="key.kid" :action="deleteSSHKey"/>
         </div>
         <div class="text-body text-margin">Add a new key:</div>
         <input class="text-input" v-model="ssh_key" />
@@ -63,14 +63,9 @@ import TextButton from "@/components/Button.vue";
 import SelectBox from "@/components/SelectBox.vue";
 import CodeBlock from "@/components/CodeBlock.vue";
 import KeyCard from "@/components/KeyCard.vue";
-import service from "@/utils";
+import service from "@/utils/index"
+import { formatDate } from '@/utils/time';
 import { mapState } from "vuex";
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
 
 export default {
   name: "SettingsPage",
@@ -129,6 +124,9 @@ export default {
     }
   },
   methods: {
+    formatDate() {
+      return formatDate
+    },
     getSSHkeys(){
       service.post("/key/get/usr/ssh", null, {
         params: {
@@ -210,9 +208,6 @@ export default {
         this.getSSHkeys();
       })
     },
-    formatDate(date) {
-      return dayjs(date).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm');
-    }
   }
 }
 </script>
