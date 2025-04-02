@@ -35,6 +35,12 @@
 
 .text-body {
     font-size: 1.1em;
+    hyphens: auto;
+    word-break: normal;
+    text-align: left;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
 }
 
 .text-body-special {

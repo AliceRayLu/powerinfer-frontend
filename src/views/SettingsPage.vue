@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
 import HeaderBar from "@/components/Header.vue";
 import FooterBar from "@/components/Footer.vue";
 import TextButton from "@/components/Button.vue";
@@ -74,7 +73,7 @@ import timezone from 'dayjs/plugin/timezone';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export default defineComponent({
+export default {
   name: "SettingsPage",
   components: {KeyCard, CodeBlock, SelectBox, TextButton, FooterBar, HeaderBar},
   computed: {
@@ -138,7 +137,6 @@ export default defineComponent({
         }
       }).then(res => {
         this.keys = res.data;
-        console.log(this.keys);
       })
     },
     updateProfile(){
@@ -217,7 +215,7 @@ export default defineComponent({
       return dayjs(date).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm');
     }
   }
-})
+}
 </script>
 
 <style>
