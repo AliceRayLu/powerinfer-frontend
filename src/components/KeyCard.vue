@@ -1,13 +1,13 @@
 <template>
   <div class="card-container">
     <div class="left">
-      <div class="key-content">{{ssh_key}}</div>
+      <div class="key-content text-body">{{ssh_key}}</div>
       <div class="time-info">
         <font-awesome-icon :icon="['far', 'clock']" />
-        <text style="margin-left: 5px;"> Added on: {{time}}</text>
+        <text style="margin-left: 5px;" class="text-hint"> Added on: {{time}}</text>
       </div>
     </div>
-    <font-awesome-icon :icon="['fas', 'trash']" class="delete-icon"/>
+    <font-awesome-icon :icon="['fas', 'trash']" class="delete-icon" @click="performAction"/>
   </div>
 </template>
 
@@ -31,6 +31,11 @@ export default {
       type: String,
       required: true,
     }
+  },
+  methods: {
+    performAction(){
+      this.$props.action(this.key_id);
+    }
   }
 }
 </script>
@@ -48,6 +53,12 @@ export default {
 }
 .left{
   text-align: left;
+  width: 90%;
+}
+.key-content {
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 .time-info {
   color: var(--grey4);
