@@ -108,7 +108,8 @@ export default {
     }
     service.post("/usr/getInfo", null, {
       params: {
-        uid: this.userId
+        uid: this.userId,
+        uname: "",
       }
     }).then(res =>{
       let user = res.data;

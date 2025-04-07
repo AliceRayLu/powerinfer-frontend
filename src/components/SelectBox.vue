@@ -39,7 +39,6 @@ export default {
   border: 1px solid;
   font-size: 1em;
   display: flex;
-  width: 18%;
   margin-left: .5vw;
 }
 </style>

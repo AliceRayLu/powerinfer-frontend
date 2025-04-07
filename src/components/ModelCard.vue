@@ -8,6 +8,10 @@
 
     </div>
     <div class="info-row text-margin" @click="jumpDetail">
+      <span v-if="visibility !== undefined">
+        <font-awesome-icon :icon="['far', 'eye']" />
+        <span class="text-hint left-distance-in-group" style="margin-right: 1.2em;">{{visibility}}</span>
+      </span>
       <font-awesome-icon :icon="['fas', 'download']" />
       <span class="text-hint left-distance-in-group">{{num_down}} downloads</span>
       <font-awesome-icon :icon="['far', 'clock']" class="left-distance" />
@@ -38,16 +42,23 @@ export default {
         const validOptions = ["outlined", "underlined"];
         return validOptions.includes(value)
       }
-    }
+    },
+    visibility: String,
   },
   methods: {
     jumpDetail(size){
-      this.$router.push({
-        path: '/detail/' + this.$props.uname + "/" + this.$props.name,
-        query: {
-          type: size
+      let pathConfig = {
+        path: `/detail/${this.$props.uname}/${this.$props.name}`
+      }
+      if (size !== null && size !== undefined) {
+        pathConfig = {
+          ...pathConfig,
+          query: {
+            type: size
+          }
         }
-      });
+      }
+      this.$router.push(pathConfig);
     }
   }
 }

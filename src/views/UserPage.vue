@@ -28,7 +28,7 @@
           <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
           <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
           <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard visibility="PUBLIC" type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
 
         </div>
       </div>
