@@ -22,7 +22,7 @@ const routes = [
         component: () => import('../views/ModelCreatePage')
     },
     {
-        path: '/models/detail',
+        path: '/models/detail/:uname?/:mname?',
         name: 'ModelDetailPage',
         component: () => import('../views/ModelDetailPage')
     },
@@ -32,7 +32,7 @@ const routes = [
         component: () => import('../views/AboutPage')
     },
     {
-        path: '/usr',
+        path: '/usr/:uname?',
         name: 'UserPage',
         component: () => import('../views/UserPage')
     },

@@ -45,7 +45,7 @@ export default {
       this.$router.push({path: '/about'});
     },
     toUsr(){
-      this.$router.push({path: '/usr'});
+      this.$router.push({path: `/usr`});
     },
     toSettings(){
       this.$router.push({path: '/settings'});

@@ -23,7 +23,13 @@
           ]" v-model="order" border="#6C8FA9" />
         </div>
         <div class="model-card-container">
-          <ModelCard name="modelname" num_down="1003" update="2025-03-23" sizes="3b,7b,13b,67b"  />
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
+
         </div>
       </div>
     </div>
@@ -56,9 +62,12 @@ export default{
     }
   },
   mounted() {
+    const name = this.$route.params.uname;
+    this.uname = name;
     service.post("/usr/getInfo", null, {
       params: {
-        uid: this.userId
+        uid: this.userId,
+        uname: name || "",
       }
     }).then(res =>{
       let user = res.data;
@@ -96,5 +105,6 @@ export default{
 .model-card-container {
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
 </style>
