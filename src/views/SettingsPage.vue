@@ -39,6 +39,7 @@
                 { value: 'Linux', label: 'Linux' }
               ]"
               defaultValue="Windows"
+              style="margin-left: .5vw;"
           />
         </div>
         <div class="text-body text-margin">Existing keys: </div>

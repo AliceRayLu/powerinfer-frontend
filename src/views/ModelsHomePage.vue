@@ -14,7 +14,7 @@
               value: 'Latest',
               label: 'Latest',
             }
-        ]" v-model="order" border="#6C8FA9" />
+        ]" v-model="order" border="#6C8FA9" style="margin-left: .5vw;"/>
       </div>
     </div>
     <FooterBar />

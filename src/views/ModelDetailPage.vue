@@ -8,9 +8,10 @@
           <div class="base-panel left-panel">
             <div style="display: flex;" class="dark-color">
               <div class="text-hint text-bold">{{model.visibility}}</div>
-              <font-awesome-icon :icon="['fas', 'repeat']" v-if="edit"
+              <font-awesome-icon :icon="['fas', 'repeat']"
                                  style="margin-left: .5vw;"
-                                 class="hover-icon" title="Switch the visibility of this model."/>
+                                 class="hover-icon" title="Switch the visibility of this model."
+                                 v-if="authored" @click="switchVisibility"/>
             </div>
             <div class="text-subtitle text-bold text-margin">{{model.name}}</div>
 
@@ -21,37 +22,54 @@
               <span class="text-hint left-distance-in-group">last updated at {{model.date}}</span>
             </div>
 
-            <div class="type-line">
-              <SelectBox :options="model.types.map(type => ({
-                value: type,
-                label: type,
-              }))" v-model="curType" />
+            <div class="type-line text-margin">
+              <SelectBox :options="model.types.map(t => ({
+                value: t,
+                label: t,
+              }))" v-model="curType" border="#52738C" style="width: 70%;" :default-value="curType"/>
+              <div class="text-body version-info">{{type.version.slice(0,8)}}</div>
             </div>
 
-
-            <div v-if="edit" style="width: 100%;display: flex; align-items: flex-end;" class="text-margin">
-              <TextButton :action="switchEdit" type="secondary" text="cancel" />
-              <TextButton :action="updateModel" type="primary" text="save" />
+            <div class="file-info">
+              <div class="title-line">
+                <div class="text-body" style="margin-left: auto;">{{autoFormatBytes(type.size)}}</div>
+              </div>
+              <div class="line">
+                <div class="text-body">activation</div>
+                <div class="size">{{autoFormatBytes(type.size_info.activation) ?? ""}}</div>
+              </div>
+              <div class="line">
+                <div class="text-body">model</div>
+                <div class="size">{{autoFormatBytes(type.size_info.model) ?? ""}}</div>
+              </div>
+              <div class="line hover-icon" @click="showConfig">
+                <div class="text-body">config.json</div>
+                <div class="size">{{autoFormatBytes(type.size_info.config) ?? ""}}</div>
+              </div>
+              <div class="line hover-icon" style="border: none;" @click="showReadme"
+                   v-if="this.type.size_info.readme != null && this.type.size_info.readme > 0">
+                <div class="text-body">README</div>
+                <div class="size">{{autoFormatBytes(type.size_info.readme) ?? ""}}</div>
+              </div>
             </div>
-            <div class="icon-button text-margin" v-else>
+
+            <div class="icon-button">
               <div class="icons">
                 <font-awesome-icon :icon="nameIsCopied ? ['fas', 'check'] : ['fas', 'copy']"
                                    size="xl" title="copy model name" @click="copyName" class="hover-icon"/>
                 <font-awesome-icon :icon="downloadIsCopied ? ['fas', 'check'] : ['fas', 'download']"
                                    size="xl" title="copy download command" class="hover-icon" @click="copyCommand"/>
-                <div v-if="authored" style="gap: 1vw; display: flex;">
-                  <font-awesome-icon :icon="['fas', 'pen-to-square']" size="xl"
-                                     @click="switchEdit" class="hover-icon" title="edit model infos"/>
-                  <font-awesome-icon :icon="['far', 'trash-can']" size="xl" class="hover-icon"
-                                     title="delete current type/size" @click="deleteType"/>
-                </div>
+                <font-awesome-icon :icon="['far', 'trash-can']" size="xl" class="hover-icon"
+                                   title="delete current type/size" @click="deleteType" v-if="authored"/>
               </div>
               <TextButton :action="deleteModel" type="primary" text="Delete All" v-if="authored" />
             </div>
           </div>
 
           <div class="base-panel right-panel">
-            <div class="text-hint text-bold">Readme</div>
+            <div class="text-hint text-bold">{{ display.title }}</div>
+            <div v-if="display.title === 'Readme'" v-html="markdownToHtml(display.description)"></div>
+            <CodeBlock v-else :text="display.description" :copy="false" />
           </div>
         </div>
       </div>
@@ -74,10 +92,12 @@ import ModelUploadPanel from "@/components/ModelUploadPanel.vue";
 import TextButton from "@/components/Button.vue";
 import {formatDate} from "@/utils/time";
 import SelectBox from "@/components/SelectBox.vue";
+import {autoFormatBytes, markdownToHtml, parseJson} from "@/utils/parser";
+import CodeBlock from "@/components/CodeBlock.vue";
 
 export default{
   name: "ModelDetailPage",
-  components: {SelectBox, TextButton, ModelUploadPanel, FooterBar, HeaderBar},
+  components: {CodeBlock, SelectBox, TextButton, ModelUploadPanel, FooterBar, HeaderBar},
   computed: {
     ...mapState(['userId'])
   },
@@ -98,17 +118,36 @@ export default{
         types: [],
       },
       curType: "",
-      edit: false,
       authored: false,
       nameIsCopied: false,
       downloadIsCopied: false,
       official_name: `${this.$route.params.uname}/${this.$route.params.mname}`,
+      type: {
+        size: 0,
+        size_info: {
+          activation: 0,
+          model: 0,
+          config: 0,
+          readme: 0,
+        },
+        version: ""
+      },
+      display: {
+        title: "Readme",
+        description: "This model has no readme yet.",
+      }
+    }
+  },
+  watch: {
+    curType(newVal) {
+      if (newVal) {
+        this.getTypeDetail();
+      }
     }
   },
   methods: {
-    switchEdit(){
-      this.edit = !this.edit;
-    },
+    markdownToHtml,
+    autoFormatBytes,
     startCountdown() {
       this.timer = setInterval(() => {
         if (this.countdown > 0) {
@@ -119,17 +158,61 @@ export default{
         }
       }, 1000);
     },
-    switchVisibility(){
-
+    showConfig(){
+      this.display.title = "config.json";
+      service.post("/type/get/file", null, {
+        params: {
+          path: this.type.dir_info["config.json"],
+        }
+      }).then(res => {
+        this.display.description = res.data;
+      })
     },
-    updateModel(){
-
+    showReadme(){
+      this.display.title = "Readme";
+      if(this.type.size_info.readme == null || this.type.size_info.readme === 0){
+        this.display.description = "No readme yet.";
+      }
+      if(this.type.size_info.readme >= 50 * 1024 * 1024){
+        this.display.description = "Readme file is too large to display. Clone the model locally to check the file. "
+        return;
+      }
+      service.post("/type/get/file", null, {
+        params: {
+          path: this.type.dir_info["README.md"],
+        }
+      }).then(res => {
+        this.display.description = res.data;
+      })
+    },
+    switchVisibility(){
+      service.post("/model/switch", null, {
+        params: {
+          mid: this.type.mid
+        }
+      }).then(() => {
+        this.$router.go(0);
+      })
     },
     deleteModel(){
-
+      if(window.confirm("Are you sure to delete this model?")){
+        service.post("/model/remove", null, {
+          params: {
+            mid: this.type.mid
+          }
+        }).then(() => {
+          this.$router.go(-1);
+        })
+      }
     },
     deleteType(){
-
+      if(window.confirm("Are you sure to delete this type/size?")){
+        service.post("/type/remove", {
+          ...this.type,
+        }).then(() => {
+          this.$router.go(0);
+        })
+      }
     },
     copyName(){
       navigator.clipboard.writeText(this.official_name)
@@ -148,6 +231,38 @@ export default{
               this.downloadIsCopied = false;
             }, 1000);
           })
+    },
+    getTypeDetail(){
+      service.post("/type/single/get", {
+        mname: this.$route.params.mname,
+        uname: this.$route.params.uname,
+        tname: this.curType,
+      }, {
+        params: {
+          "uid": this.userId,
+        }
+      }).then(type => {
+        console.log(type.data);
+        let result = type.data;
+        if (result.state !== "SUCCESS") {
+          if(result.state === "MODEL_NOT_FOUND" || result.state === "TYPE_NOT_FOUND") {
+            this.warnings.title = "404 Not Found";
+            this.warnings.description = "find";
+            this.status = 404;
+          }else if (result.state === "MODEL_UNACCESSIBLE") {
+            this.warnings.title = "403 Unauthorized";
+            this.warnings.description = "access";
+            this.status = 403;
+          }
+          this.startCountdown();
+        } else {
+          this.status = 200;
+          this.type = result.model;
+          this.type.size_info = parseJson(result.model.size_info);
+          this.type.dir_info = parseJson(result.model.dir_info);
+          this.showReadme();
+        }
+      })
     }
   },
   mounted() {
@@ -178,10 +293,10 @@ export default{
         this.authored = true;
       }
       this.model.date = formatDate(res.data.date);
-      console.log(this.model);
-      // if(this.curType !== null && this.curType.length > 0) {
-      //   service.post()
-      // }
+      console.log(this.curType);
+      if(this.curType !== null && this.curType.length > 0) {
+        this.getTypeDetail();
+      }
     }).catch(err => {
       if (err.response) {
         this.status = err.response.status;
@@ -215,15 +330,13 @@ export default{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 70vh;
   margin: 10vh auto;
 }
 .left-panel {
-  width: 30vw;
-  padding-right: 1vw;
+  width: 27vw;
 }
 .right-panel {
-  width: 40vw;
+  width: 37vw;
 }
 .dark-color {
   color: var(--secondary-color);
@@ -243,8 +356,42 @@ export default{
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  margin-top: 2vh;
 }
 .hover-icon:hover {
   cursor: pointer;
+}
+.type-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.version-info {
+  color: var(--grey4);
+}
+
+.file-info {
+  border-radius: 10px;
+  border: 1px solid var(--grey3);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2vh;
+  align-items: flex-start;
+}
+.line, .title-line {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--grey3);
+  padding: .5em;
+}
+.title-line {
+  background-color: color-mix(in srgb, var(--grey1) 80%, transparent);
+}
+.size {
+  color: var(--grey3);
 }
 </style>

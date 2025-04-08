@@ -20,7 +20,7 @@
                 value: 'Latest',
                 label: 'Latest',
               }
-          ]" v-model="order" border="#6C8FA9" />
+          ]" v-model="order" border="#6C8FA9" style="margin-left: .5vw;"/>
         </div>
         <div class="model-card-container">
           <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
