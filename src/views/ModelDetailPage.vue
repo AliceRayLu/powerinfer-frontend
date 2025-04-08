@@ -358,9 +358,6 @@ export default{
   align-items: center;
   margin-top: 2vh;
 }
-.hover-icon:hover {
-  cursor: pointer;
-}
 .type-line {
   display: flex;
   width: 100%;

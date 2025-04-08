@@ -86,3 +86,7 @@
     margin: 1vh 0 1vh 0;
     border-radius: 0.5em;
 }
+
+.hover-icon:hover {
+    cursor: pointer;
+}
