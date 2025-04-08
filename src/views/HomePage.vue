@@ -163,6 +163,7 @@ export default{
   color: var(--secondary-color);
   margin: 1vh;
 }
+
 .icons {
   display: flex;
   justify-content: space-between;

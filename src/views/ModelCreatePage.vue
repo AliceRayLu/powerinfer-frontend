@@ -89,7 +89,7 @@ export default {
           this.showHint = true;
           return;
         }
-        this.$router.push(`/detail/${this.uname}/${this.mname}`);
+        this.$router.push(`/models/detail/${this.uname}/${this.mname}`);
       })
     },
     hideHint(){

@@ -48,7 +48,7 @@ export default {
   methods: {
     jumpDetail(size){
       let pathConfig = {
-        path: `/detail/${this.$props.uname}/${this.$props.name}`
+        path: `/models/detail/${this.$props.uname}/${this.$props.name}`
       }
       if (size !== null && size !== undefined) {
         pathConfig = {
