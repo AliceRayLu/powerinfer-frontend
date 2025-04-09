@@ -5,7 +5,7 @@
               <div class="navbar">
                 <span class="title" @click="toHome">PowerInfer</span>
                 <span class="text-title nav-link-item" style="margin-left: 2vw;" @click="toInstall">
-                  Install
+                  Install Tutorial
                 </span>
                 <span class="text-title nav-link-item" @click="toModels">Models</span>
                 <span class="text-title nav-link-item" @click="toAbout">
@@ -81,7 +81,7 @@ header nav{
 }
 .navbar{
   display: flex;
-  align-items: baseline;
+  align-items: center;
 }
 .title {
   font-size: 2em;
@@ -90,6 +90,7 @@ header nav{
 .nav-link-item {
   margin-left: 1vw;
   font-weight: 100;
+  text-decoration: underline;
 }
 
 .title:hover, .nav-link-item:hover, .icon:hover {

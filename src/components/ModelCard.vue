@@ -13,7 +13,7 @@
     </div>
     <div class="info-row text-margin" @click="jumpDetail(null)">
       <span v-if="visibility !== undefined">
-        <font-awesome-icon :icon="['far', 'eye']" />
+        <font-awesome-icon :icon="visibility === 'PRIVATE' ? ['fas', 'eye-slash']:['far', 'eye']" />
         <span class="text-hint left-distance-in-group" style="margin-right: 1.2em;">{{visibility}}</span>
       </span>
       <font-awesome-icon :icon="['fas', 'download']" />

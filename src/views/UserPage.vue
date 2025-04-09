@@ -11,29 +11,36 @@
       <div class="model-column sub-container">
         <div class="top-bar">
           <SearchBar :action="searchModels" v-model="search_text" />
-          <SelectBox default-value="Popular" :options="[
+          <SelectBox default-value="numDown" :options="[
               {
-                value: 'Popular',
+                value: 'numDown',
                 label: 'Popular',
               },
               {
-                value: 'Latest',
+                value: 'date',
                 label: 'Latest',
               }
           ]" v-model="order" border="#6C8FA9" style="margin-left: .5vw;"/>
         </div>
         <div class="model-card-container">
-          <ModelCard
-              v-for="model in models"
-              :key="model.mid"
-              type="underlined"
-              :name="model.name"
-              :num_down="model.numDown"
-              :update="model.date"
-              :sizes="model.sizes.length > 0 ? model.sizes.split(',') : []"
-              :uname="uname"
-              :visibility="isSelf ? model.visibility : null"
-          />
+          <div style="height: 100%;" v-if="models.length > 0">
+            <ModelCard
+                v-for="model in models"
+                :key="model.mid"
+                type="underlined"
+                :name="model.name"
+                :num_down="model.numDown"
+                :update="model.date"
+                :sizes="(model.types && model.types.length > 0) ? model.types.split(',') : []"
+                :uname="uname"
+                :visibility="isSelf ? model.visibility : null"
+            />
+          </div>
+          <PaginationSelector :total-pages="total" :current-page="page"
+                              style="margin-top: 1vh;" v-if="models.length > 0" />
+          <div v-else class="text-title text-bold" style="margin-top: 20vh;">
+            No models found.
+          </div>
         </div>
       </div>
     </div>
@@ -49,9 +56,10 @@ import { mapState } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
 import SelectBox from "@/components/SelectBox.vue";
 import ModelCard from "@/components/ModelCard.vue";
+import PaginationSelector from "@/components/Pagination.vue";
 
 export default{
-  components: {ModelCard, SelectBox, SearchBar, FooterBar, HeaderBar},
+  components: {PaginationSelector, ModelCard, SelectBox, SearchBar, FooterBar, HeaderBar},
   computed: {
     ...mapState(["userId"])
   },
@@ -62,8 +70,11 @@ export default{
       bio: "",
       search_text: "",
       models: [],
-      order: "",
+      order: "numDown",
       isSelf: false,
+      page: 1,
+      total: 1,
+      pageSize: 6
     }
   },
   mounted() {
@@ -81,11 +92,30 @@ export default{
       this.bio = user.bio;
       this.isSelf = user.uid === this.userId;
       console.log(this.isSelf);
+      this.searchModels();
     })
   },
   methods: {
     searchModels(){
-      service.post()
+      let url = "/model/usr/get";
+      let body = {
+        page: this.page,
+        size: this.pageSize,
+        sortBy: this.order,
+        search: this.search_text,
+      };
+      if(this.isSelf) {
+        url += "/own";
+        body["user"] = this.userId;
+      }else {
+        body["user"] = this.uname;
+      }
+      service.post(url, body).then(res =>{
+        console.log(res.data);
+        this.page = 1;
+        this.total = res.data.pages+1;
+        this.models = res.data.records;
+      })
     }
   }
 }
@@ -113,5 +143,6 @@ export default{
   display: flex;
   width: 100%;
   flex-direction: column;
+  height: 100%;
 }
 </style>

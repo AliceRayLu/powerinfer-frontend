@@ -16,41 +16,45 @@
         ]" v-model="order" border="#6C8FA9" style="margin-left: .5vw;"/>
       </div>
 
-      <div class="model-columns">
+      <div class="model-columns" v-if="models.length > 0">
         <div class="model-column">
-          <ModelCard 
-            v-for="(model, index) in models.slice(0,columnSize)"
-            :key="index" 
-            :name="model.name" 
-            :sizes="model.types.length > 0 ? model.types.split(',') : []"
-            :num_down="model.numDown" 
-            :update="formatDate(model.date)"
-            :uname="model.uname"
-            :show-uname="true"
+          <ModelCard
+              v-for="(model, index) in models.slice(0,columnSize)"
+              :key="index"
+              :name="model.name"
+              :sizes="(model.types && model.types.length > 0) ? model.types.split(',') : []"
+              :num_down="model.numDown"
+              :update="formatDate(model.date)"
+              :uname="model.uname"
+              :show-uname="true"
           />
         </div>
         <div class="model-column">
-          <ModelCard 
-            v-for="(model, index) in models.slice(columnSize)"
-            :key="index" 
-            :name="model.name" 
-            :sizes="model.types.length > 0 ? model.types.split(',') : []"
-            :num_down="model.numDown" 
-            :update="formatDate(model.date)"
-            :uname="model.uname"
-            :show-uname="true"
+          <ModelCard
+              v-for="(model, index) in models.slice(columnSize)"
+              :key="index"
+              :name="model.name"
+              :sizes="(model.types && model.types.length > 0) ? model.types.split(',') : []"
+              :num_down="model.numDown"
+              :update="formatDate(model.date)"
+              :uname="model.uname"
+              :show-uname="true"
           />
         </div>
       </div>
-      
-      <div class="pagination-container">
-        <PaginationSelector 
-          :total-pages="total"
-          :current-page="page"
-          @page-changed="handlePageChange"
-          :show="7"
+
+      <div class="pagination-container" v-if="models.length > 0">
+        <PaginationSelector
+            :total-pages="total"
+            :current-page="page"
+            @page-changed="handlePageChange"
+            :show="7"
         />
       </div>
+      <div v-else class="text-title text-bold" style="margin-top: 20vh;">
+        No models found.
+      </div>
+
     </div>
     <FooterBar />
   </div>
