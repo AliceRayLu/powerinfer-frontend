@@ -4,6 +4,7 @@
     class="text-input" 
     placeholder="Search models..." 
     @keydown.enter="action"
+    @input="handleInput"
   />
 </template>
 
@@ -18,9 +19,20 @@ export default {
   },
   data() {
     return {
-      search_text: ''
+      search_text: '',
+      timeout: null
     }
   },
+  methods: {
+    handleInput() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+      this.timeout = setTimeout(() => {
+        this.action();
+      }, 500); // 500ms 后触发搜索
+    }
+  }
 }
 </script>
 

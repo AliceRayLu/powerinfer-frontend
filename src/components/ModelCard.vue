@@ -1,13 +1,17 @@
 <template>
   <div :class="['card-container', type]">
     <div class="name-row">
-      <span class="text-subtitle name-text" @click="jumpDetail">{{name}}</span>
-      <div class="chip-container">
+      <span v-if="showUname" class="text-body">
+        <span class="name-text" @click="jumpUser">{{uname}}</span>
+        <span style="margin-left: .3em;margin-right: .3em;">/</span>
+      </span>
+      <span class="text-body name-text" @click="jumpDetail(null)">{{name}}</span>
+      <div class="chip-container" v-if="sizes != null && sizes.length > 0">
         <Chip :text="size" class="chips" v-for="size in sizes.slice(0,7)" :key="size" @click="jumpDetail(size)"/>
       </div>
 
     </div>
-    <div class="info-row text-margin" @click="jumpDetail">
+    <div class="info-row text-margin" @click="jumpDetail(null)">
       <span v-if="visibility !== undefined">
         <font-awesome-icon :icon="['far', 'eye']" />
         <span class="text-hint left-distance-in-group" style="margin-right: 1.2em;">{{visibility}}</span>
@@ -28,7 +32,7 @@ export default {
   components: {Chip},
   props: {
     name: String,
-    sizes: Array(String),
+    sizes: Array,
     num_down: Number,
     update: String,
     uname: {
@@ -44,6 +48,10 @@ export default {
       }
     },
     visibility: String,
+    showUname: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     jumpDetail(size){
@@ -59,6 +67,9 @@ export default {
         }
       }
       this.$router.push(pathConfig);
+    },
+    jumpUser(){
+      this.$router.push({path: `/usr/${this.$props.uname}`});
     }
   }
 }
@@ -107,5 +118,8 @@ export default {
 }
 .name-text:hover, .info-row:hover {
   cursor: pointer;
+}
+.name-text:hover {
+  text-decoration: underline;
 }
 </style>

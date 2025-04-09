@@ -23,13 +23,17 @@
           ]" v-model="order" border="#6C8FA9" style="margin-left: .5vw;"/>
         </div>
         <div class="model-card-container">
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-          <ModelCard visibility="PUBLIC" type="underlined" name="modelname" num_down="1003" update="2025-03-23" :sizes="['3b','7b','13b','40b','1024b']" :uname="uname"/>
-
+          <ModelCard
+              v-for="model in models"
+              :key="model.mid"
+              type="underlined"
+              :name="model.name"
+              :num_down="model.numDown"
+              :update="model.date"
+              :sizes="model.sizes.length > 0 ? model.sizes.split(',') : []"
+              :uname="uname"
+              :visibility="isSelf ? model.visibility : null"
+          />
         </div>
       </div>
     </div>
@@ -58,7 +62,8 @@ export default{
       bio: "",
       search_text: "",
       models: [],
-      order: ""
+      order: "",
+      isSelf: false,
     }
   },
   mounted() {
@@ -74,11 +79,13 @@ export default{
       this.uname = user.name;
       this.email = user.email;
       this.bio = user.bio;
+      this.isSelf = user.uid === this.userId;
+      console.log(this.isSelf);
     })
   },
   methods: {
     searchModels(){
-      console.log(this.search_text);
+      service.post()
     }
   }
 }

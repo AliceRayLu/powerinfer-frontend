@@ -13,7 +13,11 @@
                                  class="hover-icon" title="Switch the visibility of this model."
                                  v-if="authored" @click="switchVisibility"/>
             </div>
-            <div class="text-subtitle text-bold text-margin">{{model.name}}</div>
+            <div class="text-subtitle text-bold text-margin">
+              <span>{{model.uname}}</span>
+              <span>/</span>
+              <span>{{model.name}}</span>
+            </div>
 
             <div class="info-line">
               <font-awesome-icon :icon="['fas', 'download']" />
@@ -116,6 +120,7 @@ export default{
         numDown: 0,
         visibility: "",
         types: [],
+        uname: ""
       },
       curType: "",
       authored: false,
@@ -154,7 +159,8 @@ export default{
           this.countdown--;
         } else {
           clearInterval(this.timer);
-          this.$router.push('/models');
+          this.timer = null;
+          this.$router.replace('/models');
         }
       }, 1000);
     },
@@ -297,6 +303,7 @@ export default{
       if(this.curType !== null && this.curType.length > 0) {
         this.getTypeDetail();
       }
+      this.model.uname = this.$route.params.uname;
     }).catch(err => {
       if (err.response) {
         this.status = err.response.status;
@@ -314,6 +321,7 @@ export default{
   beforeUnmount() {
     if (this.timer) {
       clearInterval(this.timer);
+      this.timer = null;
     }
   }
 }

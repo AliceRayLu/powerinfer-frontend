@@ -44,12 +44,21 @@ export default {
       type: Number,
       required: true
     },
+    show: {
+      type: Number,
+      default: 5
+    }
   },
   computed: {
     displayedPages() {
       const pages = []
-      if(this.totalPages <= 5){
+      if(this.totalPages <= this.show){
         for(let i = 1; i <= this.totalPages; i++){
+          pages.push(i)
+        }
+      }else {
+        let start = Math.min(Math.max(1, this.currentPage - Math.floor(this.show / 2)), this.totalPages - this.show + 1)
+        for(let i = start; i < start + this.show;i++){
           pages.push(i)
         }
       }
