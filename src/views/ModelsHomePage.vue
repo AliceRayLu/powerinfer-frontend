@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <HeaderBar />
-    <div class="main-container" style="flex-direction: column; margin-top: 3vh;">
+    <div class="main-container"
+         style="flex-direction: column; margin-top: 3vh; margin-bottom: 1vh;
+         background-color: var(--white)">
       <div class="choice-panel">
         <SearchBar  :action="searchModels" v-model="search_text"/>
         <SelectBox default-value="numDown" :options="[
@@ -127,7 +129,7 @@ export default {
 .model-columns {
   display: flex;
   gap: 2rem;
-  margin-top: 2vh;
+  margin: 2vh 5vw;
   height: 100%;
 }
 
@@ -138,7 +140,7 @@ export default {
 }
 
 .pagination-container {
-  margin-top: 1vh;
+  margin-top: auto;
   margin-bottom: 1vh;
 }
 </style>

@@ -19,22 +19,22 @@
       <div class="bottom-separator"
            style="flex-direction: column; align-items: flex-start;">
         <div class="text-subtitle left-margin text-bold">Upload model from local</div>
-        <CodeBlock :text="upload_cmd" class="left-margin" style="max-width: 95%;"/>
+        <CodeBlock :text="upload_cmd" class="left-margin"/>
       </div>
       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%">
         <div class="text-subtitle left-margin text-bold">Wait for the training process to end</div>
         <div class="text-body left-margin">
           You can query the state using command:
         </div>
-        <CodeBlock :text="query_cmd" class="left-margin" style="max-width: 95%;"/>
+        <CodeBlock :text="query_cmd" class="left-margin" />
         <div class="text-body left-margin">
           Or cancel the uploading and training process using command:
         </div>
-        <CodeBlock :text="cancel_cmd" class="left-margin" style="max-width: 95%;"/>
+        <CodeBlock :text="cancel_cmd" class="left-margin"/>
         <div class="text-body left-margin">
           If training finished, you can refresh this page to check or run the model using command:
         </div>
-        <CodeBlock :text="run_cmd" class="left-margin" style="max-width: 95%;"/>
+        <CodeBlock :text="run_cmd" class="left-margin" />
         <div class="text-body left-margin">
           This will automatically download the model and start the inference serving.
         </div>
@@ -83,7 +83,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 10vh;
   width: 100%;
 }
 .step-group {

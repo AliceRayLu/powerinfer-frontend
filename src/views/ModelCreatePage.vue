@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container" style="background-color: var(--white)">
     <HeaderBar />
     <div class="main-container center-container">
-      <div class="text-title text-bold">Creating a New Model...</div>
+      <div class="text-title text-bold" style="margin-top: 20vh;">Creating a New Model...</div>
       <div class="text-hint text-bold text-margin">Model Name</div>
       <input class="text-input" v-model="mname" style="width: 62%;" @focus="hideHint"/>
       <div class="text-hint descriptions">You may not use special character '/' in the name.</div>
@@ -106,7 +106,6 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   width: 50vw;
-  margin-top: 20vh;
 }
 
 .radio-group {

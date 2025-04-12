@@ -30,7 +30,7 @@
                 type="underlined"
                 :name="model.name"
                 :num_down="model.numDown"
-                :update="model.date"
+                :update="formatDate(model.date)"
                 :sizes="(model.types && model.types.length > 0) ? model.types.split(',') : []"
                 :uname="uname"
                 :visibility="isSelf ? model.visibility : null"
@@ -57,6 +57,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import SelectBox from "@/components/SelectBox.vue";
 import ModelCard from "@/components/ModelCard.vue";
 import PaginationSelector from "@/components/Pagination.vue";
+import {formatDate} from "@/utils/time";
 
 export default{
   components: {PaginationSelector, ModelCard, SelectBox, SearchBar, FooterBar, HeaderBar},
@@ -75,6 +76,13 @@ export default{
       page: 1,
       total: 1,
       pageSize: 6
+    }
+  },
+  watch:{
+    order(newVal) {
+      if(newVal){
+        this.searchModels()
+      }
     }
   },
   mounted() {
@@ -96,6 +104,7 @@ export default{
     })
   },
   methods: {
+    formatDate,
     searchModels(){
       let url = "/model/usr/get";
       let body = {
@@ -126,13 +135,15 @@ export default{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 3vh;
+  margin: 2vh;
 }
 .user-column {
   width: 30%;
 }
 .model-column {
   width: 70%;
+  background-color: var(--white);
+  padding: 1em;
 }
 .top-bar {
   width: 100%;

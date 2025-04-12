@@ -228,7 +228,7 @@ export default {
 }
 .key-cards {
   display: flex;
-  width: 100%;
+  width: 95%;
 }
 .disabled-name:hover {
   cursor: not-allowed;

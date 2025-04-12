@@ -1,9 +1,12 @@
 <template>
   <div class="container">
     <HeaderBar />
-    <div class="main-container">
-      <div v-if="status === 200" style="width: 100%; display: flex;">
-        <ModelUploadPanel :mname="model.name" :visibility="model.visibility" v-if="model.types === null || model.types.length === 0" />
+    <div class="main-container" style="background-color: var(--white)">
+      <div v-if="status === 200"
+           style="width: 100%; display: flex;margin-top: 8vh;">
+        <ModelUploadPanel :mname="model.name"
+                          :visibility="model.visibility"
+                          v-if="model.types === null || model.types.length === 0" />
         <div v-else style="width: 100%; flex-direction: row; display: flex;">
           <div class="base-panel left-panel">
             <div style="display: flex;" class="dark-color">
@@ -71,7 +74,7 @@
           </div>
 
           <div class="base-panel right-panel">
-            <div class="text-hint text-bold">{{ display.title }}</div>
+            <div class="text-subtitle text-bold">{{ display.title }}</div>
             <div v-if="display.title === 'Readme'" v-html="markdownToHtml(display.description)"></div>
             <CodeBlock v-else :text="display.description" :copy="false" />
           </div>
@@ -338,7 +341,7 @@ export default{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10vh auto;
+  margin: 0 auto;
 }
 .left-panel {
   width: 27vw;

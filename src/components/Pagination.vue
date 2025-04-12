@@ -103,7 +103,7 @@ export default {
   justify-content: center;
   transition: all 0.3s;
   font-weight: 600;
-  background-color: white;
+  background-color: var(--white);
 }
 
 .pagination-button:hover:not(:disabled):not(.active) {

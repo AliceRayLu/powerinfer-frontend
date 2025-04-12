@@ -48,7 +48,7 @@ export default {
 .code-block {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   background-color: color-mix(in srgb, var(--grey4) 13%, transparent);
   padding: 10px;
   border-radius: 7px;

@@ -29,7 +29,7 @@ export default {
   line-height: 2em;
   width: 2em;
   background-color: color-mix(in srgb, var(--primary-color) 80%, transparent);
-  color: white;
+  color: var(--white);
   border-radius: 50%;
 }
 .step-info {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="background-color: var(--white)">
     <HeaderBar />
     <div class="main-container" style="align-items: center;">
       <div class="left-container">

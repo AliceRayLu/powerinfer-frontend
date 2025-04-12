@@ -80,7 +80,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 100%;
+  width: 95%;
   margin-top: 1vh;
   padding: 1em;
 }

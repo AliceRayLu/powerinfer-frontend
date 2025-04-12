@@ -71,7 +71,7 @@ header nav{
   align-items: center;
   flex-direction: row;
   width: 100%;
-  background-color: var(--grey1);
+  background-color: var(--white);
 }
 .header-container{
   display: flex;

@@ -44,7 +44,7 @@ export default {
 
 .primary {
   background-color: color-mix(in srgb, var(--primary-color) 80%, transparent);
-  color: white;
+  color: var(--white);
 }
 
 .secondary {
