@@ -7,7 +7,8 @@
 
         <div class="text-subtitle text-bold">Installation</div>
         <div class="text-body text-margin" style="text-align: left;">
-          Before installation, please confirm that your computer has installed python> 3.7.
+          Before installation, please confirm that your computer has installed
+          <span class="inline-code">python> 3.7</span>.
           Then simply type in the command below to install PowerInfer server.
         </div>
         <CodeBlock text="pip install powerinfer-server" />
@@ -25,7 +26,7 @@
         <div class="text-body text-margin">
           After installation, you can simply run the following command to start a model service.
         </div>
-        <CodeBlock text="powerinfer run ReluLlama:7b" />
+        <CodeBlock text="powerinfer run powerinfer/ReluLlama:7b" />
         <div class="text-body text-margin">This will download the model and start the interface.</div>
 
         <div class="text-subtitle text-bold">Changing Running Config</div>
@@ -36,7 +37,7 @@
         <div class="text-body text-margin">
           The model directory you uploaded must satisfy the following demands:
           <ul style="gap: 1vh; display: flex; flex-direction: column;">
-            <li>No subfolder</li>
+            <li>Model is not in the hidden dir or named like hidden file</li>
             <li>Contains only one model</li>
             <li>Must have a <span class="inline-code">config.json</span> file</li>
             <li>(Optional) Readme file</li>

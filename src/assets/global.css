@@ -44,6 +44,7 @@
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
+    line-height: 1.3em;
 }
 
 .text-body-special {

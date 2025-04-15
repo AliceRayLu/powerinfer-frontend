@@ -3,10 +3,17 @@
     <HeaderBar />
     <div class="main-container" style="background-color: var(--white)">
       <div v-if="status === 200"
-           style="width: 100%; display: flex;margin-top: 8vh;">
+           style="width: 100%; display: flex;margin-top: 8vh; padding-left: 5vw; padding-right: 5vw;">
+        <div class="text-margin"
+             v-if="(model.types === null || model.types.length === 0) && this.userId !== model.uid">
+          <span class="text-bold text-subtitle">No model has been uploaded yet.</span>
+          <span class="link text-hint" style="margin-left: 5px;" @click="goBack">
+            GO BACK
+          </span>
+        </div>
         <ModelUploadPanel :mname="model.name"
                           :visibility="model.visibility"
-                          v-if="model.types === null || model.types.length === 0" />
+                          v-else-if="model.types === null || model.types.length === 0" />
         <div v-else style="width: 100%; flex-direction: row; display: flex;">
           <div class="base-panel left-panel">
             <div style="display: flex;" class="dark-color">
@@ -156,6 +163,9 @@ export default{
   methods: {
     markdownToHtml,
     autoFormatBytes,
+    goBack(){
+      this.$router.go(-1);
+    },
     startCountdown() {
       this.timer = setInterval(() => {
         if (this.countdown > 0) {
@@ -401,5 +411,12 @@ export default{
 }
 .size {
   color: var(--grey3);
+}
+.link {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+.link:hover {
+  cursor: pointer;
 }
 </style>
