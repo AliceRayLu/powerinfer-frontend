@@ -30,11 +30,12 @@ export default {
     key_id:{
       type: String,
       required: true,
-    }
+    },
+    type: String,
   },
   methods: {
     performAction(){
-      this.$props.action(this.key_id);
+      this.$props.action(this.key_id, this.type);
     }
   }
 }
@@ -43,7 +44,8 @@ export default {
 <style scoped>
 .card-container {
   display: flex;
-  width: 100%;
+  min-width: 95%;
+  max-width: 95%;
   border: 1px solid var(--grey0);
   align-items: center;
   border-radius: 10px;

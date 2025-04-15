@@ -42,14 +42,36 @@
               style="margin-left: .5vw;"
           />
         </div>
-        <div class="text-body text-margin">Existing keys: </div>
-        <div class="key-cards" v-for="key in keys" :key="key.kid">
-          <KeyCard :time="formatDate()(key.date)" :ssh_key="key.content" :key_id="key.kid" :action="deleteSSHKey"/>
+        <div v-if="keys.length > 0" style="width: 100%;">
+          <div class="text-body text-margin">Existing keys: </div>
+          <div class="key-cards" v-for="key in keys" :key="key.kid">
+            <KeyCard :time="formatDate()(key.date)" :ssh_key="key.content" :key_id="key.kid"
+                     :action="deleteKey" type="ssh"/>
+          </div>
         </div>
         <div class="text-body text-margin">Add a new key:</div>
         <input class="text-input" v-model="ssh_key" />
         <div class="text-hint text-margin" v-if="this.showHints[2]" style="color: red;">{{hints[2]}}</div>
         <TextButton :action="addSSHKey" type="primary" text="Add" class="text-margin"/>
+
+        <div class="text-subtitle text-bold margin">HuggingFace Access Tokens</div>
+        <div class="text-body text-margin" style="text-align: left;">
+          You must add huggingface tokens here in order to upload models from HuggingFace.
+          <a class="text-hint link" href="https://huggingface.co/settings/tokens" target="_blank">
+            Go to HuggingFace.
+          </a>
+        </div>
+        <div v-if="tokens.length > 0" style="width: 100%;">
+          <div class="text-body text-margin">Existing Tokens: </div>
+          <div class="key-cards" v-for="tok in tokens" :key="tok.kid">
+            <KeyCard :time="formatDate()(tok.date)" :ssh_key="tok.content" :key_id="tok.kid"
+                     :action="deleteKey" type="hf"/>
+          </div>
+        </div>
+        <div class="text-body text-margin">Add a new token:</div>
+        <input class="text-input" v-model="token" />
+        <div class="text-hint text-margin" v-if="this.showHints[3]" style="color: red;">{{hints[3]}}</div>
+        <TextButton :action="addHFToken" type="primary" text="Add" class="text-margin"/>
 
       </div>
     </div>
@@ -82,8 +104,8 @@ export default {
       bio: "",
       new_password:"",
       check_password:"",
-      showHints: [false,false,false],
-      hints: ["", "", ""],
+      showHints: [false,false,false,false],
+      hints: ["", "", "", ""],
       os: "Linux",
       commands: {
         "Windows": "type C:\\Users\\<username>\\.powerinfer\\id_rsa.pub | clip",
@@ -92,6 +114,8 @@ export default {
       },
       ssh_key:"",
       keys: [],
+      token: "",
+      tokens: []
     }
   },
   mounted() {
@@ -119,6 +143,7 @@ export default {
       this.bio = user.bio;
     })
     this.getSSHkeys();
+    this.getHFKeys();
   },
   watch: {
     os(newVal) {
@@ -136,6 +161,15 @@ export default {
         }
       }).then(res => {
         this.keys = res.data;
+      })
+    },
+    getHFKeys(){
+      service.post("/key/get/usr/hf", null, {
+        params: {
+          uid: this.userId,
+        }
+      }).then(res => {
+        this.tokens = res.data;
       })
     },
     updateProfile(){
@@ -201,13 +235,34 @@ export default {
         }
       })
     },
-    deleteSSHKey(kid){
+    addHFToken(){
+      service.post("/key/add", {
+        uid: this.userId,
+        content: this.token,
+        type: "hf"
+      }).then(res => {
+        if(!res.data){
+          this.showHints[3] = true;
+          this.hints[3] = "Token has already been added.";
+        }else {
+          this.showHints[3] = false;
+          this.token = "";
+          this.getHFKeys();
+        }
+      })
+    },
+    deleteKey(kid, type){
       service.post("/key/delete", null, {
         params: {
           kid: kid
         }
       }).then(() => {
-        this.getSSHkeys();
+        if(type === "ssh"){
+          this.getSSHkeys();
+        }
+        if(type === "hf"){
+          this.getHFKeys()
+        }
       })
     },
   }
@@ -232,5 +287,12 @@ export default {
 }
 .disabled-name:hover {
   cursor: not-allowed;
+}
+.link {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+.link:hover {
+  cursor: pointer;
 }
 </style>
