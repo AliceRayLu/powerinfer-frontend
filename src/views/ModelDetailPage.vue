@@ -3,7 +3,7 @@
     <HeaderBar />
     <div class="main-container" style="background-color: var(--white)">
       <div v-if="status === 200"
-           style="width: 100%; display: flex;margin-top: 8vh; padding-left: 5vw; padding-right: 5vw;">
+           style="width: 100%; display: flex;margin-top: 8vh; padding-left:3.5vw; ">
         <div class="text-margin"
              v-if="(model.types === null || model.types.length === 0) && this.userId !== model.uid">
           <span class="text-bold text-subtitle">No model has been uploaded yet.</span>
@@ -82,7 +82,8 @@
 
           <div class="base-panel right-panel">
             <div class="text-subtitle text-bold">{{ display.title }}</div>
-            <div v-if="display.title === 'Readme'" v-html="markdownToHtml(display.description)"></div>
+            <div v-if="display.title === 'Readme'" v-html="markdownToHtml(display.description)"
+                 style="width: 100%; text-align: left;" class="readme"></div>
             <CodeBlock v-else :text="display.description" :copy="false" />
           </div>
         </div>
@@ -351,13 +352,14 @@ export default{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 auto;
 }
 .left-panel {
-  width: 27vw;
+  width: 23vw;
+  margin-left: 0;
 }
 .right-panel {
   width: 37vw;
+  padding-left: 3vw;
 }
 .dark-color {
   color: var(--secondary-color);
@@ -418,5 +420,11 @@ export default{
 }
 .link:hover {
   cursor: pointer;
+}
+.readme pre {
+  white-space: pre-wrap;
+  background-color: color-mix(in srgb, var(--grey4) 13%, transparent);
+  padding: 10px;
+  border-radius: 7px;
 }
 </style>
