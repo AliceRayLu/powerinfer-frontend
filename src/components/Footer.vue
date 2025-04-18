@@ -12,20 +12,16 @@
 </template>
 
 <script>
+import {EMAIL, GITHUB_URL, REDDIT_URL, TWITTER_URL} from "@/assets/constants";
+
 export default {
   name: 'FooterBar',
-  computed: {
-    github() {
-      return this.$store.state.github;
-    },
-    twitter() {
-      return this.$store.state.twitter;
-    },
-    email() {
-      return this.$store.state.email;
-    },
-    reddit() {
-      return this.$store.state.reddit;
+  data(){
+    return {
+      github: GITHUB_URL,
+      twitter: TWITTER_URL,
+      reddit: REDDIT_URL,
+      email: EMAIL,
     }
   }
 }

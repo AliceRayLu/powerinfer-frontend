@@ -62,6 +62,7 @@ import TextButton from '@/components/Button.vue';
 import FooterBar from "@/components/Footer.vue";
 import { mapActions } from "vuex";
 import service from '@/utils/index';
+import {GITHUB_URL} from "@/assets/constants";
 
 export default{
     name: 'HomePage',
@@ -88,7 +89,7 @@ export default{
         this.$router.push('/usr');
       },
       toGithub(){
-        window.open(this.$store.state.github, "_blank")
+        window.open(GITHUB_URL, "_blank")
       },
       signIn(){
         service.post('/usr/login', {
