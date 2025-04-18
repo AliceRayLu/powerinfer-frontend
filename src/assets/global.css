@@ -71,7 +71,7 @@
     display: flex;
     flex: 1;
     width: var(--content-width);
-    margin: 0 auto;
+    margin: 2vh auto;
     padding: 1vh 1vw 1vh 1vw;
 }
 
@@ -93,6 +93,15 @@
     padding: 1em;
     margin: 1vh 0 1vh 0;
     border-radius: 0.5em;
+}
+
+.inline-code {
+    background-color: color-mix(in srgb, var(--grey4) 13%, transparent);
+    padding: .5em 1em .5em 1em;
+    border-radius: 7px;
+    line-height: 3em;
+    font-family: monospace;
+    font-size: 0.5em;
 }
 
 .hover-icon:hover {

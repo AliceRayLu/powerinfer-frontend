@@ -8,10 +8,12 @@
           Fast Large Language Model Serving with a Consumer-grade GPU & sparse models
         </div>
         <div class="icons">
-          <font-awesome-icon :icon="['far', 'envelope']" size="2x" />
-          <font-awesome-icon :icon="['fab', 'github']" size="2x" />
-          <font-awesome-icon :icon="['fab', 'x-twitter']" size="2x" />
-          <font-awesome-icon :icon="['fab', 'reddit-alien']" size="2x" />
+          <font-awesome-icon :icon="['far', 'envelope']" size="2x"
+                             class="hover-icon"/>
+          <font-awesome-icon :icon="['fab', 'github']" size="2x"
+                             class="hover-icon" @click="toGithub"/>
+          <font-awesome-icon :icon="['fab', 'x-twitter']" size="2x" class="hover-icon"/>
+          <font-awesome-icon :icon="['fab', 'reddit-alien']" size="2x" class="hover-icon"/>
         </div>
         <div>
           <TextButton :action="toInstall" type="primary" text="install"
@@ -31,7 +33,7 @@
         <input v-model="password" class="text-input" type="password"/>
         <div class="text-hint text-margin" v-if="this.showHint" style="color: red;">{{hint}}</div>
         <TextButton :action="signIn" type="primary" text="Sign In" class="button"/>
-        <div class="text-hint text-margin" style="text-align: center; width: 100%;">
+        <div class="text-hint" style="text-align: center; width: 100%;margin-top: 2vh;">
           Don't have an account? <a href="#" @click.prevent="switchRight">Create</a>
         </div>
       </div>
@@ -84,6 +86,9 @@ export default{
       },
       toUser(){
         this.$router.push('/usr');
+      },
+      toGithub(){
+        window.open(this.$store.state.github, "_blank")
       },
       signIn(){
         service.post('/usr/login', {

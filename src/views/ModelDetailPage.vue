@@ -192,6 +192,7 @@ export default{
       this.display.title = "Readme";
       if(this.type.size_info.readme == null || this.type.size_info.readme === 0){
         this.display.description = "No readme yet.";
+        return;
       }
       if(this.type.size_info.readme >= 50 * 1024 * 1024){
         this.display.description = "Readme file is too large to display. Clone the model locally to check the file. "

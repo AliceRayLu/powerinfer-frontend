@@ -3,10 +3,10 @@
       <div class="info">© 2025 PowerInfer</div>
       <div class="info">
         Contact Us: &nbsp;
-        <a href="https://github.com/SJTU-IPADS/PowerInfer" target="_blank">Github</a>&nbsp;
-        <a href="" target="_blank">Twitter</a>&nbsp;
-        <a href="" target="_blank">Reddit</a>&nbsp;     
-        <a href="" target="_blank">Email</a>
+        <a :href="github" target="_blank">Github</a>&nbsp;
+        <a :href="twitter" target="_blank">Twitter</a>&nbsp;
+        <a :href="reddit" target="_blank">Reddit</a>&nbsp;
+        <a :href="email" target="_blank">Email</a>
       </div>
     </div>
 </template>
@@ -14,6 +14,20 @@
 <script>
 export default {
   name: 'FooterBar',
+  computed: {
+    github() {
+      return this.$store.state.github;
+    },
+    twitter() {
+      return this.$store.state.twitter;
+    },
+    email() {
+      return this.$store.state.email;
+    },
+    reddit() {
+      return this.$store.state.reddit;
+    }
+  }
 }
 </script>
 

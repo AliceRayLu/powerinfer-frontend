@@ -3,7 +3,11 @@ import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state: {
-    userId: -1
+    userId: -1,
+    github: "https://github.com/SJTU-IPADS/PowerInfer",
+    email: "",
+    twitter: "",
+    reddit: ""
   },
   mutations: {
     setUserId(state, id) {

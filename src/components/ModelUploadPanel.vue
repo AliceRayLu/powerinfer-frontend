@@ -19,6 +19,9 @@
       <div class="bottom-separator"
            style="flex-direction: column; align-items: flex-start;">
         <div class="text-subtitle left-margin text-bold">Upload model from local</div>
+        <div class="text-hint left-margin">
+          Replace local_dir_path. Change <span class="inline-code">7b</span> into any tag you'd like to add.
+        </div>
         <CodeBlock :text="upload_cmd" class="left-margin"/>
       </div>
       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%">
