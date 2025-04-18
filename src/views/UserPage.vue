@@ -1,7 +1,15 @@
 <template>
   <div class="container">
     <HeaderBar />
-    <div class="main-container">
+    <div class="main-container" v-if="not_found" style="display: flex;flex-direction: column;">
+      <div class="text-title">
+        404 Not Found
+      </div>
+      <div class="text-subtitle text-margin">
+        This user does not exist. Go back to models page in {{countDown}} seconds.
+      </div>
+    </div>
+    <div class="main-container" v-else>
       <div class="user-column sub-container">
         <div class="text-title text-bold">{{uname}}</div>
         <div class="text-subtitle">{{email}}</div>
@@ -75,7 +83,10 @@ export default{
       isSelf: false,
       page: 1,
       total: 1,
-      pageSize: 6
+      pageSize: 6,
+      not_found: false,
+      countDown: 5,
+      timer: null
     }
   },
   watch:{
@@ -95,16 +106,35 @@ export default{
       }
     }).then(res =>{
       let user = res.data;
+      if (res.status !== 200){
+        this.not_found = true;
+        this.startCountdown();
+        return;
+      }
       this.uname = user.name;
       this.email = user.email;
       this.bio = user.bio;
       this.isSelf = user.uid === this.userId;
       console.log(this.isSelf);
       this.searchModels();
+    }).catch(() => {
+      this.not_found = true;
+      this.startCountdown();
     })
   },
   methods: {
     formatDate,
+    startCountdown() {
+      this.timer = setInterval(() => {
+        if (this.countDown > 0) {
+          this.countDown--;
+        } else {
+          clearInterval(this.timer);
+          this.timer = null;
+          this.$router.replace('/models');
+        }
+      }, 1000);
+    },
     searchModels(){
       let url = "/model/usr/get";
       let body = {
@@ -125,6 +155,12 @@ export default{
         this.total = res.data.pages+1;
         this.models = res.data.records;
       })
+    }
+  },
+  beforeUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
     }
   }
 }
